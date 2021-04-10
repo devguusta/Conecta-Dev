@@ -1,4 +1,4 @@
-import React from 'react' ;
+import React , {useState} from 'react' ;
 
 import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
@@ -9,7 +9,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../utils/axios'
 
+import authService from '../../services/authService'
+import FormHelperText  from '@material-ui/core/FormHelperText';
+import {useSelector, useDispatch} from 'react-redux'
+import {signIn} from '../../actions/accountActions'
 
 const useStyles = makeStyles((theme) => ({
      
@@ -83,6 +89,36 @@ function Copyright() {
 
 function SignIn() {
     const classes = useStyles();
+    const navigate = useNavigate()
+    const [email, setEmail] = useState('')
+    const [password, setPassowrd] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const dispatch = useDispatch();
+
+    
+    
+   
+      
+
+
+
+  async function handleSignIn() {
+        // chamada a API
+        // se retorno ok, direciona para home
+        // senao exibe mensagem para o usuario
+
+            try{
+                    await dispatch(signIn(email, password));
+                    navigate('/') 
+                
+            } catch(error) {
+               
+                setErrorMessage(error.response.data.message)
+            }
+  }
+  
+
+
     return (
 
 
@@ -124,7 +160,8 @@ function SignIn() {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
-                                
+                                value={email}   
+                                onChange={(event)=> setEmail(event.target.value)}                        
                                 />
                                 <TextField
                                 variant="outlined"
@@ -136,14 +173,26 @@ function SignIn() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                value={password}
+                                onChange={(event)=> setPassowrd(event.target.value)}
                                 
                                 />
                                 <Button fullWidth
                                 variant="contained"
                                 color="primary"
-                                className={classes.button}>
+                                className={classes.button}
+                                onClick={handleSignIn}
+                                >
                                     Entrar
                                 </Button>
+
+                                {
+                                    errorMessage && 
+                                    <FormHelperText error>
+                                        {errorMessage}
+                                        
+                                    </FormHelperText>
+                                }
                                 <Grid container>
                                     <Grid item>
                                         <Link>
