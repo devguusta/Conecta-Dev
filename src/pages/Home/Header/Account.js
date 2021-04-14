@@ -3,7 +3,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import Avatar from '@material-ui/core/Avatar'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import {signOut} from '../../../../actions/accountActions'
+import {signOut} from '../../../actions/accountActions'
+import {useNavigate} from 'react-router-dom'
 
 function Account() {
 
@@ -11,6 +12,7 @@ function Account() {
     const [isOpen, setOpen] = useState(false)
     const ref = useRef();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const isAuthenticated = !!account.user
 
@@ -26,6 +28,7 @@ function Account() {
 
         //logoff no app através de uma action no redux
         dispatch(signOut())
+        navigate('/')
     }
 
 

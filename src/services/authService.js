@@ -1,24 +1,25 @@
 import axios from '../utils/axios';
 
-
 class AuthService {
-    // outras funções 
-    signIn = (email, password) => {
-        return new Promise((resolve, reject) => {
-          axios.post('/api/home/login', { email, password }).then((response) => {
-              if (response.data.user) {
-
-                this.setToken('JWT')
-                resolve(response.data.user);
-              } else {
-                reject(response.data.error);
-              }
-            })
-            .catch((error) => {
-              reject(error);
-            });
+  signIn = (email, password) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post('/api/home/login', { email, password })
+        .then((response) => {
+          if (response.data.user) {
+            this.setToken('JWT');
+            resolve(response.data.user);
+          } else {
+            reject(response.data.error);
+          }
+        })
+        .catch((error) => {
+          reject(error);
         });
-  }
+    });
+  };
+
+  signIn = (fullName, email, password) => {};
 
   signInWithToken = () => {
     return new Promise((resolve, reject) => {
@@ -38,29 +39,20 @@ class AuthService {
   };
 
   signOut = () => {
-    this.removeToken()
-
-  }
-
+    this.removeToken();
+  };
 
   setToken = (token) => {
-    localStorage.setItem("accessToken", token);
-  }
+    localStorage.setItem('accessToken', token);
+  };
 
-  
-  getToken= () => localStorage.getItem("accessToken ")
+  getToken = () => localStorage.getItem('accessToken');
 
-  removeToken = () => localStorage.removeItem('accessToken')
+  removeToken = () => localStorage.removeItem('accessToken');
 
-  isAuthenticated = () => {
-    return !!this.getToken();
-  }
-
-
-
-
+  isAuthenticated = () => !!this.getToken();
 }
 
-const  authService = new AuthService();
+const authService = new AuthService();
 
-export default authService; 
+export default authService;
