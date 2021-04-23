@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button'
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import {useNavigate} from 'react-router-dom'
 
 const useStyles = makeStyles((theme ) => ({
      
@@ -33,10 +34,17 @@ const tags = [
 
 function NavBar() {
 
-    const classes = useStyles()
+    const classes = useStyles();
+    const navigate = useNavigate();
     return(
        <Paper className={classes.root}>
-          <Button variant="outlined" color="secondary" className={classes.button}> Registrar Grátis </Button>
+          <Button variant="outlined" 
+          color="secondary"
+           className={classes.button}
+           onClick={() => navigate('sign-up')}
+           > 
+           Registrar Grátis
+            </Button>
           <ListSubheader component="div" id="nested-list-subheader">{`Tags em alta`} </ListSubheader>
           {
               tags.map((item) => (

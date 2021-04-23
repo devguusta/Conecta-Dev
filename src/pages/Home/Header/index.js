@@ -5,10 +5,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box'
 
+
 import  Notifications from './Notifications'
 import WritePost from './WritePost'
 
 import Account from './Account'
+import { Link } from 'react-router-dom';
 
  
 
@@ -45,7 +47,10 @@ function Header ( ) {
     return (
     <AppBar position="fixed" color="inherit" className={classes.appBar}> 
     <Toolbar>
+        <Link to="/">
         <img src="/images/logo.png" alt="Logo" className={classes.img}/>
+        </Link>
+       
          <div className={classes.grow}/>
         <div className={classes.userSection}>     
 

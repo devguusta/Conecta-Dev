@@ -6,21 +6,26 @@ import Header from './Header';
 
 import NewPost from '../Post/New'
 import Feed from '../Feed'
+import Post from '../Post'
+import Profile from '../Profile';
+import SignUp from '../SignUp';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: theme.palette.background.dark,
+  
     },
     main: {
-    height:  '100vh',
+    height:  'calc(100vh-64px)',
     padding: 24
     },
     toolbar: {
       minHeight: 64,
     }
-})
+}))
 
 function Home() {
     const classes = useStyles();
@@ -33,6 +38,8 @@ function Home() {
           <Route path="/" element={<Feed />}/>
             <Route path="/feed" element={<Feed/>}/>
             <Route path="/post/new" element={<NewPost />}/>
+            <Route path="/post/:slug" element={<addressPost />}/>
+            <Route path="/post/:username" element={<Profile />}/>
             <Route path="*" element={<h1> Not found 404!</h1>} />
           </Routes>
 
