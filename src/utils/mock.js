@@ -1,9 +1,6 @@
 import MockApapter from 'axios-mock-adapter';
+import axios from './axios';
 
-
-import axios from './axios'
-
-const instance = new MockApapter(axios, {delayResponse: 0}) ;
-
+const instance = new MockApapter(axios, { delayResponse: 0 });
 
 export default instance;

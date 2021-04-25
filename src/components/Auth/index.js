@@ -1,30 +1,24 @@
-import  {useEffect, useCallback} from 'react';
-import {useDispatch} from 'react-redux'
+import { useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { setUserData } from '../../actions/accountActions';
+import authService from '../../services/authService';
 
-import authService from '../../services/authService'
-import {setUserData} from '../../actions/accountActions'
+function Auth({ children }) {
+  const dispatch = useDispatch();
 
-function Auth({children}) {
+  const initAuth = useCallback(async () => {
+    if (authService.isAuthenticated()) {
+      // recuperar os dados novamente do usuario logado
+      await dispatch(setUserData());
+    }
+  }, [dispatch]);
 
-    const dispatch = useDispatch();
+  useEffect(() => {
+    initAuth();
+  }, [initAuth]);
 
-    const initAuth = useCallback( async () => {
-        if(authService.isAuthenticated) {
-            // recuperar os dados novamente do usuário logado
-            await dispatch(setUserData());
-
-        }
-
-
-    }, [dispatch])
-    
-    useEffect(() => {
-        initAuth()
-
-    }, [initAuth])
-    return children
-    
+  return children;
 }
 
 export default Auth;
